@@ -1,1 +1,1 @@
-from v2raya/v2raya:latest
+FROM v2raya/v2raya:latest
