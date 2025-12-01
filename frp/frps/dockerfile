@@ -23,7 +23,7 @@ RUN set -eux; \
 
 # 将您的 frps.toml 配置文件复制到镜像中
 # 假设配置文件与 Dockerfile 在同一目录
-COPY frps.toml /etc/frp/frps.toml
+#COPY frps.toml /etc/frp/frps.toml
 
 # 暴露 frp 服务器端口 (7000) 和可选的面板端口 (7500)
 EXPOSE 7000
