@@ -28,7 +28,6 @@ COPY frps.toml /etc/frp/frps.toml
 # 暴露 frp 服务器端口 (7000) 和可选的面板端口 (7500)
 EXPOSE 7000
 EXPOSE 7500
-# EXPOSE 7500 # 如果您配置了 dashboard，请取消注释此行
 
 # 定义容器启动时默认执行的命令
 # frps -c 指定配置文件的路径
