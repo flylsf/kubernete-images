@@ -1,7 +1,7 @@
 # Dockerfile
 
 # 使用轻量级的 Alpine Linux 作为基础镜像
-FROM alpine:latest
+FROM docker.io/library/alpine:latest
 
 # 设置环境变量，定义要安装的 frp 版本和架构
 # 请根据实际需要修改 ARCH，例如：amd64, arm64, 386
