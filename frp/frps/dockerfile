@@ -1,0 +1,35 @@
+# Dockerfile
+
+# 使用轻量级的 Alpine Linux 作为基础镜像
+FROM alpine:latest
+
+# 设置环境变量，定义要安装的 frp 版本和架构
+# 请根据实际需要修改 ARCH，例如：amd64, arm64, 386
+ENV FRP_VERSION="0.65.0"
+ENV FRP_ARCH="amd64"
+
+# 1. 安装必要的工具 (curl, tar, gzip)
+# 2. 下载 frp 官方发行版
+# 3. 解压并移动 frps 到 /usr/bin/
+# 4. 清理下载文件和缓存
+RUN set -eux; \
+    apk add --no-cache curl tar gzip; \
+    FRP_FILENAME="frp_${FRP_VERSION}_linux_${FRP_ARCH}"; \
+    curl -L "https://github.com/fatedier/frp/releases/download/v${FRP_VERSION}/${FRP_FILENAME}.tar.gz" -o /tmp/frp.tar.gz; \
+    tar -zxvf /tmp/frp.tar.gz -C /tmp; \
+    mv /tmp/${FRP_FILENAME}/frps /usr/bin/frps; \
+    rm -rf /tmp/*; \
+    apk del curl tar gzip
+
+# 将您的 frps.toml 配置文件复制到镜像中
+# 假设配置文件与 Dockerfile 在同一目录
+COPY frps.toml /etc/frp/frps.toml
+
+# 暴露 frp 服务器端口 (7000) 和可选的面板端口 (7500)
+EXPOSE 7000
+EXPOSE 7500
+# EXPOSE 7500 # 如果您配置了 dashboard，请取消注释此行
+
+# 定义容器启动时默认执行的命令
+# frps -c 指定配置文件的路径
+CMD ["frps", "-c", "/etc/frp/frps.toml"]
