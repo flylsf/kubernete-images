@@ -1,1 +1,1 @@
-FROM qingzhoudev/push-server:latest
+FROM qingzhoudev/push-server
